@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Enter Key Press</title>
+</head>
+<body>
+
+  <input type="text" id="myInput" onkeydown="checkEnter(event)">
+  <a href="#" id="myLink" onclick="buttonClick()">Click me</a>
+
+  <script>
+    function checkEnter(event) {
+      if (event.key === "Enter") {
+        event.preventDefault(); // Prevents the default behavior of the Enter key
+        buttonClick(); // Calls the function to handle the button click
+      }
+    }
+
+    function buttonClick() {
+      alert("Button clicked!");
+      // Add your button click handling code here
+    }
+  </script>
+
+</body>
+</html>

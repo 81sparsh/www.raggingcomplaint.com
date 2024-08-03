@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Domain Search</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet"> <!-- Include Bootstrap Icons CSS -->
+
+    <style>
+        .body2 {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px; /* Add padding to create space inside the box */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            display: flex;
+            align-items: center;
+        }
+
+        .arrow-container {
+            display: flex;
+            margin-right: 10px;
+        }
+
+        .arrow {
+            margin: 0 5px;
+            font-size: 24px;
+        }
+
+        .arrow:hover {
+            cursor: pointer;
+        }
+
+        .search-input {
+            width:75%;
+            padding: 10px 30px 10px 10px; /* Add padding for text and icons */
+            box-sizing: border-box;
+            border: 2px solid #ddd; /* Set initial border color */
+            border-radius: 20px; /* Add border-radius for a rounded shape */
+            outline: none;
+            font-size: 16px;
+            color: #333; /* Set text color */
+            background-color: #fff; /* Set background color to white */
+            background-image: url('https://cdn.jsdelivr.net/npm/bootstrap-icons/icons/search.svg'); /* Add search icon */
+            background-repeat: no-repeat;
+            background-position: 95% center; /* Position the icon to the right */
+            transition: border-color 0.3s; /* Add transition for smooth effect */
+        }
+
+        .search-input:focus {
+            border-color: #007bff; /* Change border color to blue on focus */
+        }
+        .rect{
+            padding:2px;
+
+            padding-top:6px;
+            height:50px;
+            width:100%;
+            background-color: rgba(249, 249, 249, 0.9);
+
+        }
+        .iconns{
+            position:absolute;
+            left:1080px;
+
+            
+            top:14px;
+            height:40px;
+            width:200px;
+            
+        }
+    </style>
+</head>
+<body>
+    <div class="rect">
+       
+    <div class="container">
+        <div class="arrow-container">
+            <i class="bi bi-arrow-left-circle arrow"></i>
+            <i class="bi bi-arrow-right-circle arrow"></i>
+            <i class="bi bi-arrow-clockwise arrow"></i>
+        </div>
+         <img src="icons.png" alt="error" class="iconns">
+        <input type="text" id="domainInput" class="search-input" placeholder="Search in the domain" onkeypress="handleKeyPress(event)">
+    </div>
+    </div>
+    
+    <script>
+        function handleKeyPress(event) {
+            if (event.key === 'Enter') {
+                var domain = document.getElementById('domainInput').value.trim().toLowerCase();
+                var url;
+                if (domain === 'google') {
+                    url = 'https://www.google.com';
+                } else if (domain === 'facebook') {
+                    url = 'https://www.facebook.com';
+                } else if (domain === 'twitter') {
+                    url = 'https://www.twitter.com';
+                } else {
+                    url = 'https://www.google.com/search?q=site:' + domain;
+                }
+                window.location.href = url;
+            }
+        }
+    </script>
+</body>
+</html>

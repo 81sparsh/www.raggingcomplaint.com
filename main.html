@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Incident Reporting Form</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<style>
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f8f9fa;
+        background-image: url('https://www.transparenttextures.com/patterns/axiom-pattern.png');
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      header {
+        background-color: #007bff;
+        color: #fff;
+        text-align: center;
+        padding: 20px;
+        width: 100%;
+      }
+      
+      
+      nav {
+        display: flex;
+        justify-content: center;
+        margin-top: 10px;
+      }
+      
+      nav a {
+        color: #fff;
+        text-decoration: none;
+        margin: 0 15px;
+        font-weight: bold;
+      }
+      
+      .content {
+        width: 100%;
+      }
+      
+      form {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        box-sizing: border-box;
+        margin: 40px 0;
+      }
+      
+      /* Other styles as needed */
+    label {
+        display: block;
+        margin-bottom: 8px;
+        color: #333;
+    }
+    
+    input,
+    select,
+    textarea {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 16px;
+        box-sizing: border-box;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+    
+    button {
+        background-color: #28a745;
+        color: #fff;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s ease-in-out;
+    }
+    
+    button:hover {
+        background-color: #218838;
+    }
+    
+    .success-message {
+        color: #28a745;
+        font-weight: bold;
+        margin-top: 10px;
+        opacity: 0;
+        transition: opacity 0.5s ease-in-out;
+    }
+    
+    #loadingIndicator {
+        display: none;
+        /* Add your custom loading spinner styles here */
+    }
+    
+    .welcome-section,
+    .cta-section {
+        text-align: center;
+        margin-bottom: 40px;
+    }
+    
+    .welcome-section h2,
+    .cta-section h2 {
+        color: #333;
+    }
+    
+    .cta-section p {
+        margin-bottom: 20px;
+    }
+    
+    .cta-button {
+        display: inline-block;
+        background-color: #007bff;
+        color: #fff;
+        padding: 12px 20px;
+        text-decoration: none;
+        border-radius: 4px;
+        transition: background-color 0.3s ease-in-out;
+    }
+    
+    .cta-button:hover {
+        background-color: #0056b3;
+    }
+    
+    
+</style>
+<body>
+
+  <header>
+    <h1>Incident Reporting Form</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <div class="content">
+    <section class="welcome-section">
+      <h2>Welcome to our Incident Reporting Center</h2>
+      <p>Providing a safe platform to report incidents and ensure a secure environment for everyone.</p>
+    </section>
+
+    <form id="incidentForm">
+      <!-- Your incident reporting form content here -->
+    </form>
+
+    <form id="complaintForm">
+      <label for="complaintCategory">Complaint Category:</label>
+      <select id="complaintCategory" name="complaintCategory" required>
+        <option value="ragging">Ragging</option>
+        <option value="sexualHarassment">Sexual Harassment</option>
+        <option value="torture">Torture</option>
+        <!-- Add more options as needed -->
+      </select>
+
+      <label for="victimName">Victim's Name:</label>
+      <input type="text" id="victimName" name="victimName" required>
+
+      <label for="victimMobile">Victim's Mobile No.:</label>
+      <input type="tel" id="victimMobile" name="victimMobile" required>
+
+      <label for="victimEmail">Victim's Email:</label>
+      <input type="email" id="victimEmail" name="victimEmail" required>
+
+      <label for="victimGender">Victim's Gender:</label>
+      <select id="victimGender" name="victimGender" required>
+        <option value="male">Male</option>
+        <option value="female">Female</option>
+        <option value="other">Other</option>
+      </select>
+
+      <label for="victimCaste">Victim's Caste:</label>
+      <select id="victimCaste" name="victimCaste" required>
+        <option value="general">General</option>
+        <!-- Add more options as needed -->
+      </select>
+      <label for="culpritName">Culprit's Name:</label>
+  <input type="text" id="culpritName" name="culpritName" required>
+
+  <label for="culpritRollNumber">Culprit's Roll Number:</label>
+  <input type="text" id="culpritRollNumber" name="culpritRollNumber" required>
+
+  <label for="culpritHouseAddress">Culprit's House Address:</label>
+  <textarea id="culpritHouseAddress" name="culpritHouseAddress" rows="4" required></textarea>
+
+  <label for="culpritMobile">Culprit's Mobile No.:</label>
+  <input type="tel" id="culpritMobile" name="culpritMobile" required>
+
+
+      <label for="victimState">State (India):</label>
+      <select id="victimState" name="victimState" required>
+        <!-- Add options for Indian states -->
+      </select>
+
+      <label for="collegeName">Victim's College Name:</label>
+      <input type="text" id="collegeName" name="collegeName" required>
+
+      <label for="collegePinCode">College Pin Code:</label>
+      <input type="text" id="collegePinCode" name="collegePinCode" required>
+
+      <label for="victimAddress">Victim's Address:</label>
+      <textarea id="victimAddress" name="victimAddress" rows="4" required></textarea>
+
+      <label for="raggingDetails">Ragging Details:</label>
+      <textarea id="raggingDetails" name="raggingDetails" rows="4" required></textarea>
+
+      <button type="button" onclick="submitForm()">Submit</button>
+    </form>
+
+    <section class="cta-section">
+      <h2>Report an Incident Now</h2>
+      <p>Speak up against harassment, bullying, or discrimination. Your voice matters.</p>
+      <a href="#incidentForm" class="cta-button">Report Now</a>
+    </section>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        function submitForm() {
+          if (validateForm()) {
+            showLoadingIndicator();
+            setTimeout(function () {
+              hideForm();
+              displaySuccessMessage();
+              redirectToThankYouPage();
+            }, 1500);
+          }
+        }
+      
+        function validateForm() {
+          var nameInput = document.getElementById("reporterName");
+          if (!nameInput.value.trim()) {
+            alert("Please enter your name.");
+            return false;
+          }
+          return true;
+        }
+      
+        function showLoadingIndicator() {
+          document.getElementById("loadingIndicator").style.display = "block";
+        }
+      
+        function hideForm() {
+          var form = document.getElementById("incidentForm");
+          form.style.transition = "opacity 0.5s ease-in-out";
+          form.style.opacity = 0;
+        }
+      
+        function displaySuccessMessage() {
+          var successMessage = document.getElementById("successMessage");
+          successMessage.style.transition = "opacity 0.5s ease-in-out";
+          successMessage.style.opacity = 1;
+        }
+      
+        function redirectToThankYouPage() {
+          // Replace 'thankyou.html' with your actual thank-you page URL
+          window.location.href = 'thankyou.html';
+        }
+      });
+      
+  </script>
+  <footer>
+    
+  </footer>
+</body>
+</html>

@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Incident Reporting Form</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<style>
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f8f9fa;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      header {
+        background-color: #007bff;
+        position:relative;
+
+        
+        color: #fff;
+        z-index:3;
+        text-align: center;
+        padding: 20px;
+        width: 100%;
+        
+      }
+      
+      nav {
+        display: flex;
+        justify-content: center;
+        margin-top: 10px;
+      }
+      
+      nav a {
+        color: #fff;
+        text-decoration: none;
+        margin: 0 15px;
+        font-weight: bold;
+      }
+      
+      .content {
+        width: 80%;
+        margin: 20px auto;
+      }
+      
+      .welcome-section,
+      .cta-section {
+        text-align: center;
+        margin-bottom: 40px;
+      }
+      
+      .welcome-section h2,
+      .cta-section h2 {
+        color: #333;
+      }
+      
+      .cta-section p {
+        margin-bottom: 20px;
+      }
+      
+      .cta-button {
+        display: inline-block;
+        background-color: #007bff;
+        color: #fff;
+        padding: 12px 20px;
+        text-decoration: none;
+        border-radius: 4px;
+        transition: background-color 0.3s ease-in-out;
+      }
+      
+      .cta-button:hover {
+        background-color: #0056b3;
+      }
+      
+      form {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        box-sizing: border-box;
+        margin: 40px 0;
+      }
+      
+      label {
+        display: block;
+        margin-bottom: 8px;
+        color: #333;
+      }
+      
+      input,
+      select,
+      textarea {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 16px;
+        box-sizing: border-box;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+      }
+      
+      button {
+        background-color: #28a745;
+        color: #fff;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s ease-in-out;
+      }
+      
+      button:hover {
+        background-color: #218838;
+      }
+      
+      .success-message {
+        color: #28a745;
+        font-weight: bold;
+        margin-top: 10px;
+        opacity: 0;
+        transition: opacity 0.5s ease-in-out;
+      }
+      
+      #loadingIndicator {
+        display: none;
+      }
+      
+      .dialog {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        z-index: 1000;
+      }
+      
+      .dialog-content {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+      }
+      
+      .dialog-content div {
+        margin: 10px;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+      
+      .dialog-content div:hover {
+        background-color: #f2f2f2;
+      }
+      
+      
+      .ince{
+        position:absolute;
+        top:100;
+        left:0;
+        width: 400px;
+        height:150px;
+        z-index:4;
+        background-repeat:repeat-x;
+        
+      }
+   .top1{
+    width: 100%;
+    height: auto;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -1;  
+    margin-bottom: 100px;
+   }
+      
+</style>
+
+    <body>
+        <div class="ince">
+          <img src="ragging1.jpg" alt="img" class="ince">
+            
+
+        </div>
+
+
+
+        <header>
+          <h1><div class="inc">Incident Reporting Form</h1></div>
+          <img src="domain.png" alt="no image" class="top1">
+          <nav>
+            <a href="r.html">Home</a>
+            <a href="abouti" id="scrollToBottom">About</a>
+            <a href="abouti">Contact</a>
+          </nav>
+        </header>
+      
+        <div class="content">
+          <section class="welcome-section">
+            <h2>Welcome to our Incident Reporting Center</h2>
+            <p>Providing a safe platform to report incidents and ensure a secure environment for everyone.</p>
+          </section>
+      
+          <form id="incidentForm">
+            <!-- Your incident reporting form content here -->
+          </form>
+      
+          <form id="complaintForm">
+            <label for="complaintCategory">Complaint Category:</label>
+            
+<select id="complaintCategory" name="complaintCategory" required>
+  <option value="ragging">Ragging</option>
+  <option value="sexualHarassment">Sexual Harassment</option>
+  <option value="torture">Torture</option>
+  <option value="bullying">Bullying</option>
+  <option value="discrimination">Discrimination</option>
+  <option value="cyberbullying">Cyberbullying</option>
+  <option value="vandalism">Vandalism</option>
+  <option value="theft">Theft</option>
+  <option value="assault">Assault</option>
+  <option value="propertyDamage">Property Damage</option>
+  <!-- Add more options as needed -->
+</select>
+
+      
+            <label for="victimName">Victim's Name:</label>
+            <input type="text" id="victimName" name="victimName" required>
+      
+            <label for="victimMobile">Victim's Mobile No.:</label>
+            <input type="tel" id="victimMobile" name="victimMobile" required>
+      
+            <label for="victimEmail">Victim's Email:</label>
+            <input type="email" id="victimEmail" name="victimEmail" required>
+      
+            <label for="victimGender">Victim's Gender:</label>
+            <select id="victimGender" name="victimGender" required>
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+              <option value="other">Other</option>
+            </select>
+      
+            <label for="victimCaste">Victim's Caste:</label>
+            <!-- <input type="value" id="victimCaste" name="caste"> -->
+    
+            <select id="victimCaste" name="victimCaste" required>
+              <option value="general">GENERAL</option>
+              <option value="OBC">OBC</option>
+              <option value="SC">SC</option>
+              <option value="ST">ST</option>
+              <option value="others">others</option>
+              <!-- Add more options as needed -->
+            </select>
+            <label for="culpritName">Culprit's Name:</label>
+        <input type="text" id="culpritName" name="culpritName" required>
+      
+        <label for="culpritRollNumber">Culprit's Roll Number:</label>
+        <input type="text" id="culpritRollNumber" name="culpritRollNumber" required>
+      
+        <label for="culpritHouseAddress">Culprit's House Address:</label>
+        <textarea id="culpritHouseAddress" name="culpritHouseAddress" rows="4" required></textarea>
+      
+        <label for="culpritMobile">Culprit's Mobile No.:</label>
+        <input type="tel" id="culpritMobile" name="culpritMobile" required>
+      
+      
+            <label for="victimState">State (India):</label>
+            <!-- <select id="victimState" name="victimState" required> -->
+                <!-- <label for="victimState">State (India):</label> -->
+                <select id="victimState" name="victimState" required>
+                  <option value="Andhra Pradesh">Andhra Pradesh</option>
+                  <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+                  <option value="Assam">Assam</option>
+                  <option value="Bihar">Bihar</option>
+                  <option value="Chhattisgarh">Chhattisgarh</option>
+                  <option value="Goa">Goa</option>
+                  <option value="Gujarat">Gujarat</option>
+                  <option value="Haryana">Haryana</option>
+                  <option value="Himachal Pradesh">Himachal Pradesh</option>
+                  <option value="Jharkhand">Jharkhand</option>
+                  <option value="Karnataka">Karnataka</option>
+                  <option value="Kerala">Kerala</option>
+                  <option value="Madhya Pradesh">Madhya Pradesh</option>
+                  <option value="Maharashtra">Maharashtra</option>
+                  <option value="Manipur">Manipur</option>
+                  <option value="Meghalaya">Meghalaya</option>
+                  <option value="Mizoram">Mizoram</option>
+                  <option value="Nagaland">Nagaland</option>
+                  <option value="Odisha">Odisha</option>
+                  <option value="Punjab">Punjab</option>
+                  <option value="Rajasthan">Rajasthan</option>
+                  <option value="Sikkim">Sikkim</option>
+                  <option value="Tamil Nadu">Tamil Nadu</option>
+                  <option value="Telangana">Telangana</option>
+                  <option value="Tripura">Tripura</option>
+                  <option value="Uttar Pradesh">Uttar Pradesh</option>
+                  <option value="Uttarakhand">Uttarakhand</option>
+                  <option value="West Bengal">West Bengal</option>
+                  <!-- Add more options as needed -->
+                </select>
+                
+            </select>
+      
+            <label for="collegeName">Victim's College Name:</label>
+            <input type="text" id="collegeName" name="collegeName" required>
+      
+            <label for="collegePinCode">College Pin Code:</label>
+            <input type="text" id="collegePinCode" name="collegePinCode" required>
+      
+            <label for="victimAddress">Victim's Address:</label>
+            <textarea id="victimAddress" name="victimAddress" rows="4" required></textarea>
+      
+            <label for="raggingDetails">Ragging Details:</label>
+            <textarea id="raggingDetails" name="raggingDetails" rows="4" required></textarea>
+      
+            <a href="thank.html"><button type="button" onclick="submitForm()">Submit</button></a>
+          </form>
+      
+          <section class="cta-section">
+            <h2>Report an Incident Now</h2>
+            <p>Speak up against harassment, bullying, or discrimination. Your voice matters.</p>
+            <a href="thank.html" class="cta-button">Report Now</a>
+          </section>
+        </div>
+        
+        
+</body>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Function to show the state dialog
+        function showStateDialog() {
+          var stateDialog = document.getElementById("stateDialog");
+          var stateDialogContent = document.getElementById("stateDialogContent");
+      
+          // Clear existing content
+          stateDialogContent.innerHTML = "";
+      
+          // Add state options dynamically
+          var indianStates = ["Andhra Pradesh", "Arunachal Pradesh", "Assam", "Bihar", "Chhattisgarh", "Goa", "Gujarat", "Haryana", "Himachal Pradesh", "Jharkhand", "Karnataka", "Kerala", "Madhya Pradesh", "Maharashtra", "Manipur", "Meghalaya", "Mizoram", "Nagaland", "Odisha", "Punjab", "Rajasthan", "Sikkim", "Tamil Nadu", "Telangana", "Tripura", "Uttar Pradesh", "Uttarakhand", "West Bengal"];
+      
+          indianStates.forEach(function (state) {
+            var option = document.createElement("div");
+            option.textContent = state;
+            option.addEventListener("click", function () {
+              selectState(state);
+            });
+            stateDialogContent.appendChild(option);
+          });
+      
+          // Show the dialog
+          stateDialog.style.display = "block";
+        }
+      
+        // Function to handle state selection
+        function selectState(state) {
+          document.getElementById("victimState").value = state;
+          closeStateDialog();
+        }
+      
+        // Function to close the state dialog
+        function closeStateDialog() {
+          document.getElementById("stateDialog").style.display = "none";
+        }
+      
+        // Function to show the caste dialog
+        function showCasteDialog() {
+          var casteDialog = document.getElementById("casteDialog");
+          var casteDialogContent = document.getElementById("casteDialogContent");
+      
+          // Clear existing content
+          casteDialogContent.innerHTML = "";
+      
+          // Add caste options dynamically
+          var casteOptions = ["General", "OBC", "SC", "ST", "Others"];
+      
+          casteOptions.forEach(function (caste) {
+            var option = document.createElement("div");
+            option.textContent = caste;
+            option.addEventListener("click", function () {
+              selectCaste(caste);
+            });
+            casteDialogContent.appendChild(option);
+          });
+      
+          // Show the dialog
+          casteDialog.style.display = "block";
+        }
+      
+        // Function to handle caste selection
+        function selectCaste(caste) {
+          document.getElementById("victimCaste").value = caste;
+          closeCasteDialog();
+        }
+      
+        // Function to close the caste dialog
+        function closeCasteDialog() {
+          document.getElementById("casteDialog").style.display = "none";
+        }
+      
+        // Function to submit the form
+        function submitForm() {
+          if (validateForm()) {
+            showLoadingIndicator();
+            setTimeout(function () {
+              hideForm();
+              displaySuccessMessage();
+              redirectToThankYouPage();
+            }, 1500);
+          }
+        }
+      
+        // Function to validate the form
+        function validateForm() {
+          var nameInput = document.getElementById("reporterName");
+          if (!nameInput.value.trim()) {
+            alert("Please enter your name.");
+            return false;
+          }
+          return true;
+        }
+      
+        // Function to show the loading indicator
+        function showLoadingIndicator() {
+          document.getElementById("loadingIndicator").style.display = "block";
+        }
+      
+        // Function to hide the form
+        function hideForm() {
+          var form = document.getElementById("complaintForm");
+          form.style.transition = "opacity 0.5s ease-in-out";
+          form.style.opacity = 0;
+        }
+      
+        // Function to display the success message
+        function displaySuccessMessage() {
+          var successMessage = document.getElementById("successMessage");
+          successMessage.style.transition = "opacity 0.5s ease-in-out";
+          successMessage.style.opacity = 1;
+        }
+      
+        // Function to redirect to the thank you page
+        function redirectToThankYouPage() {
+          // Replace 'thankyou.html' with your actual thank-you page URL
+          window.location.href = 'thankyou.html';
+        }
+      
+        // Attach the showStateDialog function to the click event of elements with specific IDs
+        document.getElementById("victimState").addEventListener("click", showStateDialog);
+      
+        // Attach the showCasteDialog function to the click event of the caste element
+        document.getElementById("victimCaste").addEventListener("click", showCasteDialog);
+      
+        // Attach the submitForm function to the click event of the submit button
+        document.getElementById("submitBtn").addEventListener("click", submitForm);
+
+        document.getElementById('scrollToBottom').addEventListener('click', function() {
+            document.getElementById('abouti').scrollIntoView({ behavior: 'smooth' });
+          });
+      });
+      
+  </script>
+</body>
+</html>
+<!DOCTYPE html>
+        <html lang="en">
+        <head>
+          <meta charset="UTF-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <style>
+            .body{
+              margin: 0;
+              font-family: 'Arial', sans-serif;
+              background-color: #292b2c;
+              color: #fff;
+            }
+        
+            .footer {
+              padding: 20px;
+              text-align: center;
+              display: flex;
+              flex-wrap: wrap;
+              justify-content: space-between;
+              font-size: 14px;
+            }
+        
+            .column {
+
+              flex: 1;
+              max-width: 40%;
+              margin-bottom: 5vh;
+            }
+        
+            .footer ul {
+              list-style: none;
+              padding: 0;
+            }
+        
+            .footer a {
+              color: #ffd700;
+              text-decoration: none;
+              display: flex;
+              align-items: center;
+              margin-bottom: 10px;
+              transition: color 0.3s ease;
+            }
+        
+            .footer a .arrow {
+              margin-right: 5px;
+            }
+        
+            .footer a:hover {
+              text-decoration: underline;
+            }
+        
+            .contacts {
+                margin-top: 20px;
+                font-size: 16px;
+                border:  solid white;
+                color: #fff;
+              }
+              
+              .contacts h3 {
+                font-size: 18px;
+                margin-bottom: 10px;
+                color: #00bcd4;
+              }
+              
+              .contacts p {
+                margin: 0;
+                margin-bottom: 5px;
+              }
+              
+              .larger-text {
+                font-size: 18px;
+                color: #ffd700;
+              }
+              
+              .email-line {
+                display: flex;
+                flex-direction: column;
+              }
+              
+              .email-line a {
+                color: #fff;
+                text-decoration: none;
+                margin-top: 5px;
+                transition: color 0.3s ease;
+              }
+              
+              .email-line a:hover {
+                color: #ffd700;
+              }
+        
+            .terms {
+              font-size: 12px;
+              color: #ccc;
+              margin-top: 20px;
+            }
+        
+            .terms a {
+              color: #ffd700;
+              text-decoration: none;
+              transition: color 0.3s ease;
+            }
+        
+            .terms a:hover {
+              color: #00bcd4;
+            }
+        
+            .about-us {
+              color: #fff;
+              text-align: left;
+              font-size: 20px; /* Increased font size for About Us */
+              margin-bottom: 20px;
+              width: 100%;
+            }
+        
+            .about-us p {
+              margin-bottom: 10px;
+            }
+        
+            .total-visitors-section {
+                   padding: 20px;
+              text-align: center;
+              color: #fff;
+              margin-bottom: 20px;
+              width: 100%;
+              height:150px;
+            }
+            .mon{
+                
+                color:rgb(12, 160, 223);
+                font-size:25px;
+            }
+            .stopp{
+              height:100px;
+              width: 100px;
+              border: solid white ;
+              
+              position:relative;
+              transform: translate(10px,10px); 
+            }
+            .rags{
+              height:400px;
+              width:400px;
+              position:absolute;
+              bottom:0px;
+              transform: translate(200,400);
+            }
+          </style>
+          <title>Your Website</title>
+        </head>
+        <body>
+            <div class="body">
+        
+              <div class="footer">
+                <div class="about-us">
+                    <p><strong>About Us</strong></p>
+                    <p>Social evils exist in different types. Emotions, Love, Traditions, Culture may or may not stand the test of time and travel across borders, but social evils are an exception to the fact. One of such ‘Social Evils’ is what we call “Ragging”.</p>
+                    <p>Ragging is basically bullying, harassment, and disorderly conduct acted upon the ‘Freshers’ or the lower classmen in a school or college by the Seniors of those Institutions. A recent incident at a prestigious school has shown that this evil has not yet come to an end.</p>
+                  
+                    <p>A Practice popularized from the British era continuing till this day and age. It is one of the many evil heirlooms practiced by the British to teach social hierarchy and compel the students to be more “disciplined”. This evil practice has only grown worse in its form and type. In present-day and age, several institutions have faced the wrath of the public as more and more cases of Ragging surfaced.</p>
+                  
+                    <p>A recent survey highlighted the fact that most cases of these malpractices happen with the purpose to get the ones new into the institution familiar with the traditions and that they remain disciplined and respect the Students from the Senior Sections.</p>
+                  
+                    <p>In a recent case, an Ugly Ragging Incident caused the victim to commit suicide. The tragedy took place at one of the most Prestigious Schools in the City. The Ugly episode began when the victim, a male student from the 11th Standard was asked to slap a Girl from the Same Class. Upon Refusing to commit this heinous and horrendous task, the group from the 12th Standard started harassing the victim Mentally to an extent where death seemed more trouble-free to Him. Upon Investigation by the police, it was found that the mastermind behind the harassment was the ‘Prefect’ from the 12th Standard.</p>
+                  
+                    <p>A Prefect is the one considered to be a teacher’s Substitute. The grave misuse of authority by the prefect is nothing but a sin and unacceptable. Such Misconducts occur in most institutions in the country with almost 100 students every year, succumbing to mental harassment and sometimes physical.</p>
+                  
+                    <p>An educational institution is a place where parents send their children to educate themselves into a better human being and gain knowledge and hence to maintain the sanctity of education and values, such Evil Practices must be uprooted as soon as possible.</p>
+                  
+                    <p>The Government and the Concerned authorities should pass a strict law complimenting the mass abolishment of this cruelty called “Ragging”. A strict Punishment will force many perpetrators to think before committing such atrocious acts in the future. Every institution should also keep a close eye into making sure they prevent such crimes to take place.</p>
+                  </div>
+                  
+            
+                <div class="total-visitors-section">
+                  <p style="font-size: 40px; margin-bottom: 10px;">Visitor Statistics</p>
+                  <p style="font-size: 18px; margin: 0;">Over 117 million visitors and counting!</p>
+                </div>
+            
+                <div class="column">
+                  <ul>
+                    <li><a href="https://www.ugc.ac.in/" target="_blank"><span class="arrow">&#9658;</span> University Grants Commission (UGC)</a></li>
+                    <li><a href="https://www.c4yindia.org/" target="_blank"><span class="arrow">&#9658;</span> Monitoring Agency, Centre for Youth (C4Y)</a></li>
+                    <li><a href="https://www.education.gov.in/" target="_blank"><span class="arrow">&#9658;</span> Ministry of Education (MoE)</a></li>
+                    <li><a href="https://www.example.com/verify-affidavit" target="_blank"><span class="arrow">&#9658;</span> Verify Your Affidavit</a></li>
+                    <li><a href="https://www.example.com/council-login" target="_blank"><span class="arrow">&#9658;</span> Council Login</a></li>
+                    <li><a href="https://www.example.com/college-login" target="_blank"><span class="arrow">&#9658;</span> College Login</a></li>
+                    <li><a href="https://www.example.com/admin-login" target="_blank"><span class="arrow">&#9658;</span> Admin Login</a></li>
+                    <li><a href="https://www.example.com/sitemap" target="_blank"><span class="arrow">&#9658;</span> Sitemap</a></li>
+                    <li><a href="https://www.example.com/home" target="_blank"><span class="arrow">&#9658;</span> Home</a></li>
+                    <li><a href="https://www.example.com/fill-affidavits" target="_blank"><span class="arrow">&#9658;</span> Fill Affidavits</a></li>
+                    <li><a href="https://www.example.com/fill-compliance" target="_blank"><span class="arrow">&#9658;</span> Fill Compliance</a></li>
+                    <li><a href="https://www.example.com/register-complaint" target="_blank"><span class="arrow">&#9658;</span> Register Complaint</a></li>
+                    <li><a href="https://www.example.com/give-feedback" target="_blank"><span class="arrow">&#9658;</span> Give Your Feedback</a></li>
+                    <li><a href="https://www.example.com/download-undertaking" target="_blank"><span class="arrow">&#9658;</span> Download Undertaking</a></li>
+                    <li><a href="https://www.example.com/faq" target="_blank"><span class="arrow">&#9658;</span> Frequently Asked Questions</a></li>
+                    <li><a href="https://www.example.com/information-packs" target="_blank"><span class="arrow">&#9658;</span> Information Packs</a></li>
+                    <li><a href="https://www.example.com/videos-on-ragging" target="_blank"><span class="arrow">&#9658;</span> Videos on Ragging</a></li>
+                    <!-- <li><a href="https://www.example.com/videos-on-ragging" target="_blank"><span class="arrow">&#9658;</span> </a></li> -->
+                    <!-- Add your additional links here -->
+                  </ul>
+                </div>
+            
+              
+            
+               </div>
+               <div class="column contacts">
+                <h3><p class="mon">Contact Information</h3></p>
+                <p><strong>University Grants Commission (UGC)</strong></p>
+                <p>Anti Ragging Cell, 6 Benito Juarez Marg, South Campus, South Moti Bagh, New Delhi - 110021</p>
+                <div class="email-line">
+                  <p><strong>National Anti-Ragging Helpline</strong>: 1800-180-5522</p>
+                  <a href="mailto:helpline@antiragging.in">helpline@antiragging.in</a>
+                </div>
+                <p class="mon"><strong>Monitoring Agency (C4Y)</strong></p>
+                <p>New Delhi - 110068</p>
+                <div class="email-line">
+                  <p><strong>Phone No</strong>: 91-11416 19005</p>
+                  <a href="mailto:antiragging@c4yindia.org">antiragging@c4yindia.org</a>
+                </div>
+              </div>
+        <div>
+          <img src="./stop.jpg" alt="stop" class="stopp">
+        </div>
+            
+        
+        </div>
+        <!-- <div>
+          <img src="stop.jpg" alt="ragging" class="stop">
+        </div> -->
+        </body>
+        </html>

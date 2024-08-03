@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chrome Tabs</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .tabs-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #f1f1f1;
+            padding: 8px;
+        }
+
+        .tabs {
+            display: flex;
+        }
+
+        .tab {
+            padding: 8px 30px;
+            margin-right: 4px;
+            border: 1px solid #ccc;
+            border-bottom: none;
+            border-radius: 5px 5px 0 0;
+            background-color: #fff;
+            cursor: pointer;
+            position: relative;
+            transition: background-color 0.3s;
+        }
+
+        .tab:hover {
+            background-color: #f9f9f9;
+        }
+
+        .tab.active {
+            background-color: #fff;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .tab-content {
+            padding: 16px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 0 0 5px 5px;
+            min-height: 200px;
+        }
+
+        .actions {
+            display: flex;
+            align-items: center;
+        }
+
+        .action {
+            margin-left: 8px;
+            color: #777;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .action:hover {
+            color: #333;
+        }
+
+        .close-btn {
+            position: absolute;
+            right: 5px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #777;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .close-btn:hover {
+            color: #333;
+        }
+
+        .add-tab {
+            padding: 8px;
+            margin-right: 4px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #fff;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .add-tab:hover {
+            background-color: #f9f9f9;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="tabs-container">
+        <div class="tabs">
+            <div class="tab active">
+                Tab 1
+                <span class="close-btn">×</span>
+            </div>
+            <div class="tab">Tab 2<span class="close-btn">×</span></div>
+            <div class="tab">Tab 3<span class="close-btn">×</span></div>
+            <div class="add-tab">+</div>
+        </div>
+        <div class="actions">
+            <div class="action">-</div>
+            <div class="action">○</div>
+            <div class="action">✨</div>
+        </div>
+    </div>
+    <div class="tab-content">
+        Content of Tab 1
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const tabs = document.querySelectorAll('.tab');
+            const tabContents = document.querySelectorAll('.tab-content');
+
+            tabs.forEach((tab, index) => {
+                tab.addEventListener('click', function () {
+                    tabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                    tabContents.forEach(tc => tc.style.display = 'none');
+                    tabContents[index].style.display = 'block';
+                });
+
+                const closeBtn = tab.querySelector('.close-btn');
+                if (closeBtn) {
+                    closeBtn.addEventListener('click', function (e) {
+                        e.stopPropagation();
+                        tab.remove();
+                        tabContents[index].remove();
+                    });
+                }
+            });
+
+            document.querySelector('.add-tab').addEventListener('click', function () {
+                const newTab = document.createElement('div');
+                newTab.classList.add('tab');
+                newTab.textContent = 'New Tab';
+                newTab.innerHTML += '<span class="close-btn">×</span>';
+                document.querySelector('.tabs').insertBefore(newTab, document.querySelector('.add-tab'));
+
+                const newContent = document.createElement('div');
+                newContent.classList.add('tab-content');
+                newContent.textContent = 'Content of New Tab';
+                document.body.appendChild(newContent);
+
+                tabs.forEach((tab, index) => {
+                    tab.classList.remove('active');
+                    tabContents[index].style.display = 'none';
+                });
+
+                newTab.classList.add('active');
+                newContent.style.display = 'block';
+            });
+        });
+    </script>
+</body>
+
+</html>

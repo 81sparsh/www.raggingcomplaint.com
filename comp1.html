@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Website</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+            
+        }
+
+        .container {
+            overflow-y: scroll;
+            height: 100vh;
+            position: relative;
+        }
+
+        #image-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow-y: auto;
+        }
+
+        .fixed-text {
+            position: absolute;
+            top: 143px;
+            left: 140px;
+            font-size:16px;
+            text-decoration:none;
+            color:rgb(66, 66, 184);
+           
+            padding: 10px;
+            
+            
+        }
+        .fixed-text:hover{
+            color:blue;
+            text-decoration:underline;
+        }
+
+        img {
+            width: 100%;
+            height: auto;
+            display: block;
+            
+        }
+        .comp4{
+            
+        }
+        .comp6{
+           
+            
+
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div id="image-container">
+            <a href="rnew.html" class="fixed-text" >
+                Register Complaint
+            </div></a>
+            <img src="comp1.png" alt="Complaint Image 1">
+            <img src="comp3.png" alt="Complaint Image 2">
+            <img src="comp5.png" class="comp4" alt="Complaint Image 3">
+            <img src="comp6.1.png" class="comp6"alt="Complaint Image 4">
+            <img src="comp6.2.png" class="comp4" alt="Complaint Image 3">
+            <img src="comp6.3.png" class="comp6"alt="Complaint Image 4">
+            <img src="comp6.4.png" alt="Compliant Image 5">
+            <img src="comp6.5.png" alt="Complaint Image 6">
+            <!-- Add more images as needed -->
+        </div>
+    </div>
+
+</body>
+</html>

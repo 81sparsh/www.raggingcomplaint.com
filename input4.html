@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chrome Tabs</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .tabs-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #f1f1f1;
+            padding: 8px;
+        }
+
+        .tabs {
+            display: flex;
+        }
+
+        .tab {
+            padding: 8px 30px;
+            margin-right: 4px;
+            border: 1px solid #ccc;
+            border-bottom: none;
+            border-radius: 5px 5px 0 0;
+            background-color: #fff;
+            cursor: pointer;
+            position: relative;
+            transition: background-color 0.3s;
+        }
+
+        .tab:hover {
+            background-color: #f9f9f9;
+        }
+
+        .tab.active {
+            background-color: #fff;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .tab-content {
+            padding: 16px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 0 0 5px 5px;
+            min-height: 200px;
+        }
+
+        .website {
+            width: 100%;
+            height: calc(100vh - 50px);
+            border: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="tabs-container">
+        <div class="tabs">
+            <div class="tab active" data-website="https://www.google.com">
+                Tab 1
+            </div>
+            <div class="tab" data-website="https://www.github.com">
+                Tab 2
+            </div>
+            <div class="tab" data-website="rnew.html">
+                Tab 3
+            </div>
+        </div>
+    </div>
+    <iframe class="tab-content website" src="https://www.google.com"></iframe>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const tabs = document.querySelectorAll('.tab');
+            const websiteFrame = document.querySelector('.website');
+
+            tabs.forEach(tab => {
+                tab.addEventListener('click', function () {
+                    tabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                    websiteFrame.src = tab.getAttribute('data-website');
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

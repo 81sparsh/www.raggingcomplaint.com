@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Incident Reporting Form</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header>
+    <h1>Incident Reporting Form</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <div class="content">
+    <section class="welcome-section">
+      <h2>Welcome to our Incident Reporting Center</h2>
+      <p>Providing a safe platform to report incidents and ensure a secure environment for everyone.</p>
+    </section>
+
+    <form id="complaintForm">
+      <label for="complaintCategory">Complaint Category:</label>
+      <select id="complaintCategory" name="complaintCategory" required>
+        <option value="ragging">Ragging</option>
+        <option value="sexualHarassment">Sexual Harassment</option>
+        <option value="torture">Torture</option>
+        <!-- Add more options as needed -->
+      </select>
+
+      <label for="victimName">Victim's Name:</label>
+      <input type="text" id="victimName" name="victimName" required>
+
+      <label for="victimMobile">Victim's Mobile No.:</label>
+      <input type="tel" id="victimMobile" name="victimMobile" required>
+
+      <label for="victimEmail">Victim's Email:</label>
+      <input type="email" id="victimEmail" name="victimEmail" required>
+
+      <label for="victimGender">Victim's Gender:</label>
+      <select id="victimGender" name="victimGender" required>
+        <option value="male">Male</option>
+        <option value="female">Female</option>
+        <option value="other">Other</option>
+      </select>
+
+      <label for="victimCaste">Victim's Caste:</label>
+      <select id="victimCaste" name="victimCaste" onclick="showCasteDialog()"required>
+        <option value="general">General</option>
+        <!-- Add more options as needed -->
+      </select>
+
+      <label for="victimState">State (India):</label>
+      <select id="victimState" name="victimState" onclick="showStateDialog()" required>
+      </select>
+
+      <label for="collegeName">Victim's College Name:</label>
+      <input type="text" id="collegeName" name="collegeName" required>
+
+      <label for="collegePinCode">College Pin Code:</label>
+      <input type="text" id="collegePinCode" name="collegePinCode"  required>
+
+      <label for="victimAddress">Victim's Address:</label>
+      <textarea id="victimAddress" name="victimAddress" rows="4" required></textarea>
+
+      <label for="raggingDetails">Ragging Details:</label>
+      <textarea id="raggingDetails" name="raggingDetails" rows="4" required></textarea>
+
+      <button type="submit">Submit</button>
+    </form>
+
+    <section class="cta-section">
+      <h2>Report an Incident Now</h2>
+      <p>Speak up against harassment, bullying, or discrimination. Your voice matters.</p>
+      <a href="#complaintForm" class="cta-button">Report Now</a>
+    </section>
+  </div>
+
+  <div id="stateDialog" class="dialog">
+    <div id="stateDialogContent" class="dialog-content">
+      <!-- State options will be dynamically inserted here -->
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

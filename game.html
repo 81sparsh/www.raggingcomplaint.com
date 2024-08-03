@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            background-color: #f5f5f5;
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            zoom: 1.5; /* Adjust the zoom factor as needed */
+        }
+
+        #game-container {
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            text-align: center;
+            max-width: 600px;
+            width: 80%;
+        }
+
+        .face {
+            font-size: 200px;
+            width: 200px;
+            height: 200px;
+            margin: 0 auto 20px;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        button {
+            padding: 15px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        #completed-btn, #try-again-btn {
+            padding: 15px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #008CBA;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+
+        #try-again-btn:hover {
+            background-color: #0077a3;
+        }
+
+        #score-container {
+            display: none;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+
+        #comment {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            color: #333333;
+            margin-bottom: 20px;
+        }
+
+        #follow-up-screen {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #follow-up-screen h2 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        #follow-up-screen button {
+            padding: 15px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #008CBA;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+
+        #follow-up-screen button:hover {
+            background-color: #0077a3;
+        }
+    </style>
+    <title>Emoji Faces Game</title>
+</head>
+<body>
+    <div id="game-container">
+        <h1>Rate Your Expressions</h1>
+        <div class="face" id="face">😊</div>
+        <div id="score-container"></div>
+        <div id="comment"></div>
+        <div class="controls">
+            <button onclick="nextEmoji()" id="next-btn">Next</button>
+            <button id="completed-btn" onclick="showScore()" style="display: none;">Completed</button>
+        </div>
+        <button id="try-again-btn" onclick="tryAgain()" style="display: none;">Try Again</button>
+    </div>
+    <div id="follow-up-screen">
+        <h2>Congratulations! You completed the Emoji Faces Game.</h2>
+        <button onclick="resetGame()">Try Again</button>
+    </div>
+    <script>
+        const emojis = ['😀', '😊', '😎', '😜', '😢', '😡', '🥳', '😇', '😺', '🤖', '🤠', '😴', '🙄'];
+        let currentIndex = 0;
+
+        function displayEmoji(index) {
+            const faceElement = document.getElementById('face');
+            faceElement.textContent = emojis[index];
+        }
+
+        function nextEmoji() {
+            currentIndex = (currentIndex + 1) % emojis.length;
+            if (currentIndex === emojis.length - 1) {
+                document.getElementById('completed-btn').style.display = 'inline-block';
+                document.getElementById('next-btn').disabled = true;
+            }
+            displayEmoji(currentIndex);
+        }
+
+        function showScore() {
+            const score = Math.floor(Math.random() * 100) + 1;
+            document.getElementById('score-container').innerHTML = 'Your score: ' + score;
+            document.getElementById('score-container').style.display = 'block';
+            document.getElementById('try-again-btn').style.display = 'inline-block';
+            document.getElementById('completed-btn').style.display = 'none';
+            displayComment(score);
+        }
+
+        function displayComment(score) {
+            const commentElement = document.getElementById('comment');
+            if (score < 30) {
+                commentElement.textContent = 'You can do better!';
+            } else if (score < 70) {
+                commentElement.textContent = 'Good job!';
+            } else {
+                commentElement.textContent = 'Excellent! Well done!';
+            }
+        }
+
+        function tryAgain() {
+            currentIndex = 0;
+            document.getElementById('score-container').style.display = 'none';
+            document.getElementById('comment').textContent = '';
+            document.getElementById('try-again-btn').style.display = 'none';
+            document.getElementById('completed-btn').style.display = 'none';
+            document.getElementById('next-btn').disabled = false;
+            displayEmoji(currentIndex);
+        }
+
+        function resetGame() {
+            currentIndex = 0;
+            document.getElementById('follow-up-screen').style.display = 'none';
+            document.getElementById('game-container').style.display = 'flex';
+            document.getElementById('next-btn').disabled = false;
+            displayEmoji(currentIndex);
+        }
+
+        // Initial display
+        displayEmoji(currentIndex);
+    </script>
+</body>
+</html>

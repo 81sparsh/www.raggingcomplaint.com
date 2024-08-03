@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            background-color: #f5f5f5;
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        #game-container, #camera-container, #follow-up-screen {
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            text-align: center;
+            max-width: 600px;
+            width: 80%;
+        }
+
+        .face {
+            font-size: 200px;
+            width: 200px;
+            height: 200px;
+            margin: 0 auto 20px;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        button {
+            padding: 15px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        #completed-btn, #try-again-btn {
+            padding: 15px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #008CBA;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+
+        #try-again-btn:hover {
+            background-color: #0077a3;
+        }
+
+        #score-container, #comment {
+            margin-bottom: 40px;
+            font-size: 24px;
+        }
+
+        h1 {
+            color: #333333;
+            margin-bottom: 20px;
+        }
+
+        #follow-up-screen {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #follow-up-screen h2 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        #follow-up-screen button {
+            padding: 15px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #008CBA;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+
+        #follow-up-screen button:hover {
+            background-color: #0077a3;
+        }
+        /* Add this animation style at the end of your existing CSS */
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+#score-container {
+    /* ... (your existing styles) */
+    animation: fadeIn 1s ease-in-out;
+}
+
+#comment {
+    /* ... (your existing styles) */
+    animation: fadeIn 1s ease-in-out;
+}
+@keyframes fadeInOut {
+    0% {
+      opacity: 0;
+    }
+    25% {
+      opacity: 1;
+    }
+    75% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+    }
+  }
+  @keyframes colorChange {
+    0% {
+      color: #333; /* Initial color */
+    }
+    25% {
+      color: #e74c3c; /* Color at 25% of the animation */
+    }
+    50% {
+      color: #2ecc71; /* Color at 50% of the animation */
+    }
+    75% {
+      color: #f39c12; /* Color at 75% of the animation */
+    }
+    100% {
+      color: #3498db; /* Color at 100% of the animation */
+    }
+  }
+
+  .text-transition {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    animation: colorChange 2.5s infinite;
+  }
+
+
+    </style>
+    <title >Emoji Expressions Challenge</title>
+</head>
+<body>
+    <div id="game-container">
+        <h1 >How good are your expressions???</h1>
+        <h2 class="text-transition">Find how attractive you are</h2>
+        <h3>Make you face like the emoji</h3>
+        <div class="face" id="face">😊</div>
+        <div id="score-container" style="display: none;"></div>
+        <div id="comment" style="display: none;"></div>
+        <div class="controls">
+            <button onclick="captureAndNext()" id="next-btn" >Next</button>
+            <button id="completed-btn" onclick="downloadCapturedPhotos()" style="display: none;">Completed</button>
+        </div>
+        <button id="try-again-btn" onclick="tryAgain()" style="display: none;">Try Again</button>
+    </div>
+
+    <div id="camera-container" style="display: none;">
+        <h1>Camera Capture</h1>
+        <video id="video" width="400" height="300" autoplay></video>
+        <br>
+        <button id="captureBtn">Capture Photo</button>
+        <button id="downloadBtn" style="display: none;">Download Photos</button>
+    </div>
+
+    <div id="follow-up-screen">
+        <h2>Congratulations! You completed the Emoji Expressions Challenge.</h2>
+        <button onclick="resetGame()">Try Again</button>
+    </div>
+
+    <script>
+        
+        const emojis = ['😀','😜','😨','😩','😡','😝','😋','😱','😬','🤔','😒','😏','☹️','😂','😅','😗','😒','😩','😤','😳','😴', '🙄'];
+        let currentIndex = 0;
+        let capturedPhotos = [];
+
+        function displayEmoji(index) {
+            const faceElement = document.getElementById('face');
+            faceElement.textContent = emojis[index];
+        }
+
+        function nextEmoji() {
+            currentIndex = (currentIndex + 1) % emojis.length;
+            if (currentIndex === emojis.length - 1) {
+                document.getElementById('completed-btn').style.display = 'inline-block';
+                document.getElementById('next-btn').disabled = true;
+            }
+            displayEmoji(currentIndex);
+        }
+
+        function captureAndNext() {
+            captureImage();
+            nextEmoji();
+        }
+
+        function captureImage() {
+            const video = document.getElementById('video');
+            const context = document.createElement('canvas').getContext('2d');
+            const videoWidth = video.videoWidth || video.width;
+            const videoHeight = video.videoHeight || video.height;
+            context.canvas.width = videoWidth;
+            context.canvas.height = videoHeight;
+
+            context.drawImage(video, 0, 0, videoWidth, videoHeight);
+
+            const photoDataUrl = context.canvas.toDataURL('image/png');
+
+            capturedPhotos.push(photoDataUrl);
+            document.getElementById('downloadBtn').style.display = capturedPhotos.length > 0 ? 'block' : 'none';
+        }
+
+        function downloadCapturedPhotos() {
+            for (let i = 0; i < capturedPhotos.length; i++) {
+                const downloadLink = document.createElement('a');
+                downloadLink.href = capturedPhotos[i];
+                downloadLink.download = `captured_photo_${i + 1}.png`;
+                downloadLink.click();
+            }
+            showScore();
+        }
+
+        function showScore() {
+            const score = Math.floor(Math.random() * 100) + 1;
+            document.getElementById('score-container').innerHTML = 'Your score: ' + score;
+            document.getElementById('score-container').style.display = 'block';
+            document.getElementById('comment').style.display = 'block';
+            document.getElementById('try-again-btn').style.display = 'inline-block';
+            document.getElementById('completed-btn').style.display = 'none';
+            displayComment(score);
+        }
+
+        function displayComment(score) {
+            const commentElement = document.getElementById('comment');
+
+            if (score < 10) {
+                commentElement.textContent = 'Oh no! You can do better. Keep practicing.';
+            } else if (score < 15) {
+                commentElement.textContent = 'Almost there! Push a little harder.';
+            } else if (score < 20) {
+                commentElement.textContent = 'Oops! Keep trying.';
+            } else if (score < 25) {
+                commentElement.textContent = 'You\'re making progress, keep it up!';
+            } else if (score < 30) {
+                commentElement.textContent = 'Nice effort! You\'re getting there.';
+            } else if (score < 35) {
+                commentElement.textContent = 'Good attempt! Keep pushing yourself.';
+            } else if (score < 40) {
+                commentElement.textContent = 'Good job! Consistent improvement.';
+            } else if (score < 45) {
+                commentElement.textContent = 'Great work! Almost there.';
+            } else if (score < 50) {
+                commentElement.textContent = 'Fantastic! You\'re doing exceptionally well.';
+            } else if (score < 55) {
+                commentElement.textContent = 'Bravo! Outstanding performance!';
+            } else if (score < 60) {
+                commentElement.textContent = 'Bravo! Excellent work!';
+            } else if (score < 65) {
+                commentElement.textContent = 'Incredible! You\'re reaching new heights!';
+            } else if (score < 70) {
+                commentElement.textContent = 'Amazing! Keep up the outstanding work.';
+            } else if (score < 75) {
+                commentElement.textContent = 'Spectacular! You\'re a true champion!';
+            } else if (score < 80) {
+                commentElement.textContent = 'Unbelievable! Your skills are unmatched.';
+            } else if (score < 85) {
+                commentElement.textContent = 'Phenomenal! You\'re a gaming prodigy.';
+            } else if (score < 90) {
+                commentElement.textContent = 'Exceptional! You\'re on another level.';
+            } else {
+                commentElement.textContent = 'Bravo! Perfect score! Exceptional performance!';
+            }
+        }
+
+        function tryAgain() {
+            currentIndex = 0;
+            document.getElementById('score-container').style.display = 'none';
+            document.getElementById('comment').style.display = 'none';
+            document.getElementById('try-again-btn').style.display = 'none';
+            document.getElementById('completed-btn').style.display = 'none';
+            document.getElementById('next-btn').disabled = false;
+            capturedPhotos = [];
+            resetCamera();
+            displayEmoji(currentIndex);
+        }
+
+        function resetGame() {
+            currentIndex = 0;
+            document.getElementById('follow-up-screen').style.display = 'none';
+            document.getElementById('game-container').style.display = 'flex';
+            document.getElementById('next-btn').disabled = false;
+            capturedPhotos = [];
+            resetCamera();
+            displayEmoji(currentIndex);
+        }
+
+        function resetCamera() {
+            document.getElementById('video').pause();
+            document.getElementById('video').srcObject = null;
+            document.getElementById('camera-container').style.display = 'none';
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const video = document.getElementById('video');
+            const captureBtn = document.getElementById('captureBtn');
+            const downloadBtn = document.getElementById('downloadBtn');
+
+            navigator.mediaDevices.getUserMedia({ video: true })
+                .then((stream) => {
+                    video.srcObject = stream;
+                })
+                .catch((error) => {
+                    console.error('Error accessing camera:', error);
+                });
+
+            captureBtn.addEventListener('click', () => {
+                captureImage();
+            });
+
+            downloadBtn.addEventListener('click', () => {
+                downloadCapturedPhotos();
+            });
+        });
+    </script>
+</body>
+</html>

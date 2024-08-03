@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            text-decoration: none;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background-color: #fff;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            margin: 14px 30px 0 0;
+        }
+
+        nav a,
+        button {
+            font-size: 13px;
+            display: inline-block;
+            line-height: 24px;
+            font-weight: 400;
+            color: rgba(0, 0, 0, 0.87);
+            cursor: pointer;
+            margin: 0 7px;
+            padding: 5px 6.7px;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+            opacity: 0.85;
+        }
+
+        nav img {
+            width: 34px;
+            padding: 5px;
+            margin: auto 7px;
+            cursor: pointer;
+            transition: opacity 0.3s ease;
+        }
+
+        nav img:hover {
+            opacity: 0.8;
+        }
+
+        nav button {
+            border: 1px solid #4285f4;
+            font-weight: bold;
+            outline: none;
+            background: #4285f4;
+            color: #fff;
+            padding: 7px 12px;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        nav button:hover {
+            background-color: #357ae8;
+        }
+
+        .section-1 {
+            flex: 1;
+            text-align: center;
+        }
+
+        .logo {
+            display: block;
+            margin: 0 auto;
+            margin-top: 107px;
+        }
+
+        .s-box {
+            width: 580px;
+            margin: 0 auto;
+            position: relative;
+            margin-top: 10px;
+            text-align: center;
+        }
+
+        .s-box .s-input {
+            display: block;
+            border: 1px solid #ddd;
+            color: rgba(0, 0, 0, 0.87);
+            font-size: 16px;
+            padding: 13px;
+            padding-left: 45px;
+            border-radius: 25px;
+            width: 100%;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            transition: box-shadow 100ms;
+            outline: none;
+        }
+
+        .s-box .s-input:hover {
+            border: 1px solid #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .s-box .search-icon {
+            width: 20px;
+            opacity: 0.4;
+            position: absolute;
+            top: 20px;
+            left: 20px;
+        }
+
+        .s-box .vs-icon {
+            width: 14px;
+            position: absolute;
+            top: 20px;
+            right: 30px;
+        }
+
+        .s-btn {
+            border: 1px solid transparent;
+            padding: 9px 15px;
+            color: #585757;
+            font-size: 14px;
+            border-radius: 4px;
+            display: inline-block;
+            margin-right: 10px;
+            margin-top: 28px;
+            outline: none;
+            cursor: pointer;
+            transition: border-color 100ms;
+            text-decoration: none;
+            background-color: #f8f9fa;
+        }
+
+        .s-btn:hover {
+            border: 1px solid #aaa;
+            background-color: #f2f2f2;
+        }
+
+        .suggestions-container {
+            position: absolute;
+            width: 100%;
+            max-height: 150px;
+            overflow-y: auto;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            background-color: #fff;
+            display: none;
+            border: 1px solid #ddd;
+            border-top: none;
+            border-radius: 0 0 8px 8px;
+        }
+
+        .suggestion-item {
+            padding: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .suggestion-item:hover {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="#">Gmail</a>
+        <a href="#">Images</a>
+        <img src="g-menu.PNG" alt="Menu Icon">
+        <button>Sign in</button>
+    </nav>
+    <section class="section-1">
+        <img src="logo.png" alt="Google Logo" class="logo">
+        <form><br><br>
+            <div class="s-box">
+                <img src="search.svg" alt="Search Icon" class="search-icon">
+                <input type="text" class="s-input" placeholder="Search Google..." id="searchInput">
+                <div class="suggestions-container" id="suggestionsContainer"></div>
+                <img src="vs.png" alt="Vertical Separator" class="vs-icon">
+                <a href="comp1.html" class="s-btn google">Google Search</a>
+                <input type="submit" class="s-btn" value="I'm Feeling Lucky">
+            </div>
+        </form>
+        <div class="lang">
+            Google offered in:
+            <a href="#">India</a>
+            <a href="#">Frysk</a>
+        </div>
+    </section>
+    <footer>
+        <h4>India</h4>
+        <div class="links">
+            <div class="link-1">
+                <a href="#">Advertising</a>
+                <a href="#">Business</a>
+                <a href="#">About</a>
+                <a href="#">How Search works</a>
+            </div>
+            <div class="link-2">
+                <a href="#">Privacy</a>
+                <a href="#">Terms</a>
+                <a href="#">Settings</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var searchInput = document.querySelector(".s-input");
+            var suggestionsContainer = document.querySelector(".suggestions-container");
+
+            searchInput.addEventListener("click", function () {
+                showSuggestions();
+            });
+
+            document.addEventListener("click", function (event) {
+                if (!searchInput.contains(event.target) && !suggestionsContainer.contains(event.target)) {
+                    hideSuggestions();
+                }
+            });
+
+            function showSuggestions() {
+                suggestionsContainer.style.display = "block";
+                // Simulate adding suggestions dynamically
+                suggestionsContainer.innerHTML = `
+                    <div class="suggestion-item" onclick="selectSuggestion('michael dhiman')">michael dhiman</div>
+                    <div class="suggestion-item" onclick="selectSuggestion('xxx')">xxx</div>
+                    <div class="suggestion-item" onclick="selectSuggestion('snehail')">snehail</div>
+                    <div class="suggestion-item" onclick="selectSuggestion('ragging complaint')">ragging complaint</div>
+                `;
+            }
+
+            function hideSuggestions() {
+                suggestionsContainer.style.display = "none";
+            }
+
+            function selectSuggestion(value) {
+                searchInput.value = value;
+                hideSuggestions();
+                searchInput.focus();
+            }
+        });
+    </script>
+</body>
+</html>

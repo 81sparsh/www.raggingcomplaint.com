@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google Search</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f2f2f2;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        .search-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex: 1;
+            padding: 20px;
+        }
+
+        .search-box {
+            position: relative;
+            width: 580px;
+        }
+
+        .search-icon {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            left: 16px;
+            width: 20px;
+            opacity: 0.54;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 13px 48px 13px 40px;
+            font-size: 16px;
+            border: 1px solid #dfe1e5;
+            border-radius: 24px;
+            outline: none;
+        }
+
+        .suggestions-container {
+            position: absolute;
+            width: 100%;
+            max-height: 150px;
+            overflow-y: auto;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            background-color: #fff;
+            display: none;
+            border: 1px solid #ddd;
+            border-top: none;
+            border-radius: 0 0 8px 8px;
+        }
+
+        .suggestion-item {
+            padding: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .suggestion-item:hover {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+
+<div class="search-container">
+    <div class="search-box">
+        <img src="search.svg" alt="Search Icon" class="search-icon">
+        <input type="text" class="search-input" placeholder="Search Google..." id="searchInput" onclick="showSuggestions()">
+        <div class="suggestions-container" id="suggestionsContainer">
+            <div class="suggestion-item" onclick="selectSuggestion('michael dhiman')">michael dhiman</div>
+            <div class="suggestion-item" onclick="selectSuggestion('xxx')">xxx</div>
+            <div class="suggestion-item" onclick="selectSuggestion('snehail')">snehail</div>
+            <div class="suggestion-item" onclick="selectSuggestion('ragging complaint')">ragging complaint</div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function showSuggestions() {
+        var suggestionsContainer = document.getElementById('suggestionsContainer');
+        suggestionsContainer.style.display = 'block';
+    }
+
+    function selectSuggestion(value) {
+        var searchInput = document.getElementById('searchInput');
+        var suggestionsContainer = document.getElementById('suggestionsContainer');
+
+        searchInput.value = value;
+        suggestionsContainer.style.display = 'none';
+        searchInput.focus();
+    }
+</script>
+</body>
+</html>

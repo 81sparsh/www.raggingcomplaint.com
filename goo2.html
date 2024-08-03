@@ -1,0 +1,935 @@
+]<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            text-decoration: none;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background-color: #fff;
+        }
+        
+        nav {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            margin: 14px 30px 0 0;
+        }
+        
+        nav a,
+        button {
+            font-size: 13px;
+            display: inline-block;
+            line-height: 24px;
+            font-weight: 400;
+            color: rgba(0, 0, 0, 0.87);
+            cursor: pointer;
+            margin: 0 7px;
+            padding: 5px 6.7px;
+        }
+        
+        nav a:hover {
+            text-decoration: underline;
+            opacity: 0.85;
+        }
+        
+        nav img {
+            width: 34px;
+            padding: 5px;
+            margin: auto 7px;
+            cursor: pointer;
+            transition: opacity 0.3s ease;
+        }
+        
+        nav img:hover {
+            opacity: 0.8;
+        }
+        
+        nav button {
+            border: 1px solid #4285f4;
+            font-weight: bold;
+            outline: none;
+            background: #4285f4;
+            color: #fff;
+            padding: 7px 12px;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        nav button:hover {
+            background-color: #357ae8;
+        }
+        
+        .section-1 {
+            flex: 1;
+            text-align: center;
+        }
+        
+        .logo {
+            display: block;
+            margin: 0 auto;
+            margin-top: 107px;
+        }
+        
+        .s-box {
+            width: 580px;
+            margin: 0 auto;
+            position: relative;
+            margin-top: -8px;
+            text-align: center;
+        }
+        
+        .s-box .s-input {
+            display: block;
+            border: 1px solid #ddd;
+            color: rgba(0, 0, 0, 0.87);
+            font-size: 16px;
+            padding: 13px;
+            padding-left: 45px;
+            border-radius: 25px;
+            width: 100%;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            transition: box-shadow 100ms;
+            outline: none;
+        }
+        
+        .s-box .s-input:hover {
+            border: 1px solid #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .s-box .search-icon {
+            width: 20px;
+            opacity: 0.4;
+            position: absolute;
+            top: 13px;
+            left: 14px;
+        }
+        
+        .s-box .vs-icon {
+            width: 14px;
+            position: absolute;
+            top: 13px;
+            right: 24px;
+        }
+        
+        .s-btn {
+            border: 1px solid transparent;
+            padding: 9px 15px;
+            color: #585757;
+            font-size: 14px;
+            border-radius: 4px;
+            display: inline-block;
+            margin-right: 10px;
+            margin-top: 28px;
+            outline: none;
+            cursor: pointer;
+            transition: border-color 100ms;
+        }
+        
+        .s-btn:hover {
+            border: 1px solid #aaa;
+            background-color: #f2f2f2;
+        }
+        
+        .lang {
+            margin-top: 30px;
+            text-align: center;
+            font-size: 13px;
+            color: #111;
+        }
+        
+        .lang a {
+            margin-left: 5px;
+            color: #1a0dab;
+            transition: color 0.3s ease;
+        }
+        
+        .lang a:hover {
+            text-decoration: underline;
+            color: #0d47a1;
+        }
+        
+        footer {
+            background: #f2f2f2;
+            border-top: 1px solid #ddd;
+            text-align: center;
+            padding: 20px 0;
+        }
+        
+        footer h4 {
+            color: rgba(0, 0, 0, 0.54);
+            font-size: 15px;
+            line-height: 39.5px;
+            font-weight: 400;
+            border: 1px solid #eee;
+        }
+        
+        footer a {
+            color: #5f6368;
+            display: inline-block;
+            padding: 12px 11.3px;
+            font-size: 14px;
+            transition: color 0.3s ease;
+        }
+        
+        footer a:hover {
+            text-decoration: underline;
+            color: #0d47a1;
+        }
+        
+        .links {
+            display: flex;
+            justify-content: center;
+        }
+        
+        .link-1,
+        .link-2 {
+            flex: 1;
+        }
+        
+        .google {
+            background-color: rgba(165, 160, 160, 0.18);
+        }
+        
+        .google:hover {
+            background-color: rgba(121, 105, 105, 0.24);
+        }
+        .suggestions-container {
+            position: absolute;
+            width: 100%;
+            max-height: 150px;
+            overflow-y: auto;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            background-color: #fff;
+            display: none;
+            border: 1px solid #ddd;
+            border-top: none;
+            border-radius: 0 0 8px 8px;
+        }
+
+        .suggestion-item {
+            padding: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .suggestion-item:hover {
+            background-color: #f2f2f2;
+        }
+        
+
+
+        /* Suggestion box styles */
+       /* .suggestions-container {
+            position: absolute;
+            width: 100%;
+            max-height: 150px;
+            overflow-y: auto;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            background-color: #fff;
+            display: none;
+            border: 1px solid #ddd;
+            border-top: none; 
+            border-radius: 0 0 8px 8px; 
+        }
+
+        .suggestion-item {
+            padding: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .suggestion-item:hover {
+            background-color: #f2f2f2;
+        }*/
+       
+            .s-box {
+                position: relative;
+                display: inline-block;
+            }
+        
+            .suggestions-container {
+                position: absolute;
+                width: 100%;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                z-index: 1000;
+                background-color: #fff;
+                border: 1px solid #ddd;
+                border-top: none;
+                border-radius: 0 0 8px 8px;
+                box-sizing: border-box;
+                margin-top: 0;
+                display: none;
+            }
+        
+            .s-box:hover .suggestions-container {
+                display: block;
+            }
+        
+            .suggestion-item {
+                padding: 10px;
+                cursor: pointer;
+                transition: background-color 0.3s ease;
+                box-sizing: border-box;
+            }
+        
+            .suggestion-item:hover {
+                background-color: #f2f2f2;
+            }
+            
+                .s-box {
+                    position: relative;
+                    display: inline-block;
+                    width: 580px;
+                    margin: 0 auto;
+                    text-align: center;
+                }
+            
+                .s-box:hover .suggestions-container {
+                    display: block;
+                }
+            
+                .suggestions-container {
+                    position: absolute;
+                    width: 100%;
+                    max-height: 190px;
+                    overflow-y: auto;
+                    box-shadow:  0 8px 8px rgba(0, 0, 0, 0.1);
+                    z-index: 1000;
+                    background-color: #fff;
+                    border: 1px solid #ddd;
+                    border-top: none;
+                    border-radius: 0 0 8px 8px;
+                    box-sizing: border-box;
+                    margin-top: 0;
+                    display: none;
+                }
+            
+                .suggestion-item {
+                    padding: 10px;
+                    cursor: pointer;
+                    transition: background-color 0.3s ease;
+                    box-sizing: border-box;
+                }
+            
+                .suggestion-item:hover {
+                    background-color: #f2f2f2;
+                }
+            
+                .s-box .s-input {
+                    display: block;
+                    border: 1px solid #ddd;
+                    color: rgba(0, 0, 0, 0.87);
+                    font-size: 16px;
+                    padding: 13px;
+                    padding-left: 45px;
+                    border-radius: 25px;
+                    width: 100%;
+                    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                    transition: box-shadow 100ms;
+                    outline: none;
+                    margin-top: 10px;
+                }
+            
+                .s-box .s-input:hover {
+                    border: 1px solid #fff;
+                    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                }
+            
+                .s-box .search-icon {
+                    width: 20px;
+                    opacity: 0.4;
+                    position: absolute;
+                    top: 20px;
+                    left: 20px;
+                }
+            
+                .s-box .vs-icon {
+                    width: 14px;
+                    position: absolute;
+                    top: 20px;
+                    right: 30px;
+                }
+            
+                .s-box .s-btn {
+                    border: 1px solid transparent;
+                    padding: 9px 15px;
+                    color: #585757;
+                    font-size: 14px;
+                    border-radius: 4px;
+                    display: inline-block;
+                    margin-right: 10px;
+                    margin-top: 28px;
+                    outline: none;
+                    cursor: pointer;
+                    transition: border-color 100ms;
+                    text-decoration: none;
+                    background-color: #f8f9fa;
+                }
+            
+                .s-box .s-btn:hover {
+                    border: 1px solid #aaa;
+                    background-color: #f2f2f2;
+                }
+                .s-box .s-input {
+                    display: block;
+                    border: 1px solid #ddd;
+                    color: rgba(0, 0, 0, 0.87);
+                    font-size: 16px;
+                    padding: 13px;
+                    padding-left: 45px;
+                    border-radius: 11px; /* Updated border-radius */
+                    width: 100%;
+                    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                    transition: box-shadow 100ms;
+                    outline: none;
+                }
+                
+                .s-box .s-input:focus {
+                    border-radius: 11px 11px 0 0; /* Updated border-radius when focused */
+                    border-bottom: none; /* Remove the bottom border when focused */
+                }
+                
+                
+                .s-box .suggestions-container {
+                    position: absolute;
+                    width: 100%;
+                    box-shadow: 0 20 8px rgba(0, 0, 0, 0); /* Remove the upper shadow */
+                    z-index: 1000;
+                    background-color: #fff; /* Set the background color to match the input box */
+                    border: 1px solid #ddd;
+                    border-top: none;
+                    border-radius: 0 0 14px 14px; /* Keep the rounded corners at the bottom */
+                    box-sizing: border-box;
+                    margin-top: 0;
+                    display: none;
+                    text-align:left;
+                }
+                
+                
+                
+        
+                .s-box:hover .suggestions-container {
+                    display: block;
+                }
+        
+                .s-box .suggestion-item {
+                    padding: 10px;
+                    cursor: pointer;
+                    transition: background-color 0.3s ease;
+                    box-sizing: border-box;
+                }
+        
+                .s-box .suggestion-item:hover {
+                    background-color: #f2f2f2;
+                }
+                /*this is for the dialog box */
+                .s-box .suggestions-container:hover {
+                    box-shadow: 0 0 8px rgba(0, 0, 0, 0.1); /* Add box shadow on hover */
+                }
+             
+                
+            
+        
+    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google</title>
+    <link rel="icon" href="favicon.ico">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+<body>
+    <nav>
+        <a href="#">Gmail</a>
+        <a href="#">Images</a>
+        <img src="g-menu.PNG" alt="Menu Icon">
+        <button>Sign in</button>
+    </nav>
+    <section class="section-1">
+        <img src="logo.png" alt="Google Logo" class="logo">
+        <form><br><br>
+            <div class="s-box">
+                <img src="search.svg" alt="Search Icon" class="search-icon">
+                <input type="text" class="s-input" placeholder="Search Google..." id="searchInput">
+                <div class="suggestions-container" id="suggestionsContainer"></div>
+                <img src="vs.png" alt="Vertical Separator" class="vs-icon">
+                <a href="comp1.html" class="s-btn google">Google Search</a>
+                <input type="submit" class="s-btn" value="I'm Feeling Lucky">
+            </div>
+        </form>
+        <div class="lang">
+            Google offered in:
+            <a href="#">India</a>
+            <a href="#">Frysk</a>
+        </div>
+    </section>
+    <footer>
+        <h4>India</h4>
+        <div class="links">
+            <div class="link-1">
+                <a href="#">Advertising</a>
+                <a href="#">Business</a>
+                <a href="#">About</a>
+                <a href="#">How Search works</a>
+            </div>
+            <div class="link-2">
+                <a href="#">Privacy</a>
+                <a href="#">Terms</a>
+                <a href="#">Settings</a>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        /*
+        document.addEventListener("DOMContentLoaded", function () {
+            var searchInput = document.querySelector(".s-input");
+            var suggestionDropdown = document.querySelector(".suggestion-dropdown");
+
+            // Event listener for click on the search input field
+            searchInput.addEventListener("click", function () {
+                showSuggestionsDropdown();
+            });
+
+            // Event listener for keypress on the search input field
+            searchInput.addEventListener("keypress", function (event) {
+                if (event.key === "Enter") {
+                    event.preventDefault(); // Prevent default form submission
+                    searchAndRedirect();
+                }
+            });
+
+            // Event listener to close the dropdown when clicking outside
+            document.addEventListener("click", function (event) {
+                if (!searchInput.contains(event.target) && !suggestionDropdown.contains(event.target)) {
+                    hideSuggestionsDropdown();
+                }
+            });
+
+            // Function to show the suggestion dropdown
+            function showSuggestionsDropdown() {
+                suggestionDropdown.style.display = "block";
+            }
+
+            // Function to hide the suggestion dropdown
+            function hideSuggestionsDropdown() {
+                suggestionDropdown.style.display = "none";
+            }
+
+            // Function to handle selecting a suggestion
+            function selectSuggestion(suggestion) {
+                searchInput.value = suggestion;
+                hideSuggestionsDropdown();
+            }
+
+            // Function to handle search and redirection
+            function searchAndRedirect() {
+                var searchTerm = searchInput.value.trim();
+
+                if (searchTerm !== "") {
+                    var redirectURL;
+
+                    // Check different values and set corresponding URLs
+                    if (searchTerm === "michael dhiman") {
+                        redirectURL = "go1.html";
+                    } else if (searchTerm === "xxx") {
+                        redirectURL = "go2.html";
+                    } else if (searchTerm === "snehail") {
+                        redirectURL = "go4.html";
+                    } else if (searchTerm === "ragging complaint") {
+                        redirectURL = "comp1.html";
+                    } else {
+                        // Default redirection if no specific match
+                        redirectURL = "go3.html?q=" + encodeURIComponent(searchTerm);
+                    }
+
+                    // Redirect to the determined URL
+                    window.location.href = redirectURL;
+
+                    // Hide the suggestion dropdown after redirection
+                    hideSuggestionsDropdown();
+                } else {
+                    // Handle the case when the search term is empty
+                    console.error("Search term is empty.");
+                }
+            }
+        });*  
+
+
+        document.addEventListener("DOMContentLoaded", function () {
+            var searchInput = document.querySelector(".s-input");
+            var suggestionsContainer = document.querySelector(".suggestions-container");
+        
+            // Suggestion list
+            var suggestionList = ["michael dhiman", "xxx", "snehail", "ragging complaint","complaing"];
+        
+            // Event listener for input on the search input field
+            searchInput.addEventListener("input", function () {
+                showSuggestionsDropdown();
+                updateSuggestions();
+            });
+        
+            // Event listener for keypress on the search input field
+            searchInput.addEventListener("keypress", function (event) {
+                if (event.key === "Enter") {
+                    event.preventDefault(); // Prevent default form submission
+                    searchAndRedirect();
+                }
+            });
+        
+            // Event listener to close the dropdown when clicking outside
+            document.addEventListener("click", function (event) {
+                if (!searchInput.contains(event.target) && !suggestionsContainer.contains(event.target)) {
+                    hideSuggestionsDropdown();
+                }
+            });
+        
+            // Function to show the suggestion dropdown
+            function showSuggestionsDropdown() {
+                suggestionsContainer.style.display = "block";
+            }
+        
+            // Function to hide the suggestion dropdown
+            function hideSuggestionsDropdown() {
+                suggestionsContainer.style.display = "none";
+            }
+        
+            // Function to update suggestions based on user input
+            function updateSuggestions() {
+                var searchTerm = searchInput.value.trim().toLowerCase();
+                var filteredSuggestions = suggestionList.filter(function (suggestion) {
+                    return suggestion.toLowerCase().includes(searchTerm);
+                });
+        
+                // Display suggestions in the container
+                renderSuggestions(filteredSuggestions);
+            }
+        
+            // Function to render suggestions in the container
+            function renderSuggestions(suggestions) {
+                suggestionsContainer.innerHTML = "";
+        
+                suggestions.forEach(function (suggestion) {
+                    var suggestionItem = document.createElement("div");
+                    suggestionItem.className = "suggestion-item";
+                    suggestionItem.textContent = suggestion;
+                    suggestionItem.onclick = function () {
+                        selectSuggestion(suggestion);
+                    };
+        
+                    suggestionsContainer.appendChild(suggestionItem);
+                });
+            }
+        
+            // Function to handle selecting a suggestion
+            function selectSuggestion(suggestion) {
+                searchInput.value = suggestion;
+                hideSuggestionsDropdown();
+            }
+        
+            // Function to handle search and redirection
+            function searchAndRedirect() {
+                var searchTerm = searchInput.value.trim();
+
+                if (searchTerm !== "") {
+                    var redirectURL;
+
+                    // Check different values and set corresponding URLs
+                    if (searchTerm === "michael dhiman") {
+                        redirectURL = "go1.html";
+                    } else if (searchTerm === "xxx") {
+                        redirectURL = "go2.html";
+                    } else if (searchTerm === "snehail") {
+                        redirectURL = "go4.html";
+                    } else if (searchTerm === "ragging complaint") {
+                        redirectURL = "comp1.html";
+                    } else {
+                        // Default redirection if no specific match
+                        redirectURL = "go3.html?q=" + encodeURIComponent(searchTerm);
+                    }
+
+                    // Redirect to the determined URL
+                    window.location.href = redirectURL;
+
+                    // Hide the suggestion dropdown after redirection
+                    hideSuggestionsDropdown();
+                } else {
+                    // Handle the case when the search term is empty
+                    console.error("Search term is empty.");
+                }
+            }
+        });*/
+       /* document.addEventListener("DOMContentLoaded", function () {
+    var searchInput = document.querySelector(".s-input");
+    var suggestionsContainer = document.querySelector(".suggestions-container");
+
+    // Predefined suggestions
+    var predefinedSuggestions = ["michael dhiman", "xxx", "snehail", "ragging complaint","fuck off"];
+
+    // Event listener for input on the search input field
+    searchInput.addEventListener("input", function () {
+        showSuggestionsDropdown();
+        updateSuggestions();
+    });
+
+    // Event listener for keypress on the search input field
+    searchInput.addEventListener("keypress", function (event) {
+        if (event.key === "Enter") {
+            event.preventDefault(); // Prevent default form submission
+            searchAndRedirect();
+        }
+    });
+
+    // Event listener to close the dropdown when clicking outside
+    document.addEventListener("click", function (event) {
+        if (!searchInput.contains(event.target) && !suggestionsContainer.contains(event.target)) {
+            hideSuggestionsDropdown();
+        }
+    });
+
+    // Function to show the suggestion dropdown
+    function showSuggestionsDropdown() {
+        suggestionsContainer.style.display = "block";
+    }
+
+    // Function to hide the suggestion dropdown
+    function hideSuggestionsDropdown() {
+        suggestionsContainer.style.display = "none";
+    }
+
+    // Function to update suggestions based on user input
+    function updateSuggestions() {
+        var searchTerm = searchInput.value.trim().toLowerCase();
+        var filteredSuggestions = predefinedSuggestions.filter(function (suggestion) {
+            return suggestion.toLowerCase().includes(searchTerm);
+        });
+
+        // Display suggestions in the container
+        renderSuggestions(filteredSuggestions);
+    }
+
+    // Function to render suggestions in the container
+    function renderSuggestions(suggestions) {
+        suggestionsContainer.innerHTML = "";
+
+        suggestions.forEach(function (suggestion) {
+            var suggestionItem = document.createElement("div");
+            suggestionItem.className = "suggestion-item";
+            suggestionItem.textContent = suggestion;
+            suggestionItem.onclick = function () {
+                selectSuggestion(suggestion);
+            };
+
+            suggestionsContainer.appendChild(suggestionItem);
+        });
+    }
+
+    // Function to handle selecting a suggestion
+    function selectSuggestion(suggestion) {
+        searchInput.value = suggestion;
+        hideSuggestionsDropdown();
+    }
+
+    // Function to handle search and redirection
+    function searchAndRedirect() {
+        var searchTerm = searchInput.value.trim();
+
+        if (predefinedSuggestions.includes(searchTerm)) {
+            // Use predefined redirects for specific search terms
+            var redirectURL = getRedirectURL(searchTerm);
+            window.location.href = redirectURL;
+            hideSuggestionsDropdown();
+        } else {
+            // Default redirection if no specific match
+            var defaultRedirectURL = "go3.html?q=" + encodeURIComponent(searchTerm);
+            window.location.href = defaultRedirectURL;
+            hideSuggestionsDropdown();
+        }
+    }
+
+    // Function to get predefined redirect URL for specific search terms
+    function getRedirectURL(searchTerm) {
+        switch (searchTerm) {
+            case "michael dhiman":
+                return "go1.html";
+            case "xxx":
+                return "go2.html";
+            case "snehail":
+                return "go4.html";
+            case "ragging complaint":
+                return "comp1.html";
+            default:
+                return "go3.html?q=" + encodeURIComponent(searchTerm);
+        }
+    }
+}); */
+
+
+
+
+document.addEventListener("DOMContentLoaded", function () {
+    var searchInput = document.querySelector(".s-input");
+    var suggestionsContainer = document.querySelector(".suggestions-container");
+
+    // Predefined suggestions
+    var predefinedSuggestions = ["michael dhiman", "xxx", "snehail", "ragging complaint", "fuck off"];
+
+    // Event listener for click on the search input field
+    searchInput.addEventListener("click", function () {
+        showSuggestionsDropdown();
+        updateSuggestions();
+    });
+
+    // Event listener for keypress on the search input field
+    searchInput.addEventListener("keypress", function (event) {
+        if (event.key === "Enter") {
+            event.preventDefault(); // Prevent default form submission
+            searchAndRedirect();
+        }
+    });
+
+    // Event listener for click on the suggestions dropdown
+    suggestionsContainer.addEventListener("click", function (event) {
+        // Handle the click on the suggestion dropdown
+        var clickedItem = event.target;
+        if (clickedItem.classList.contains("suggestion-item")) {
+            selectSuggestion(clickedItem.textContent);
+            searchAndRedirect(); // Continue the operation after selecting a suggestion
+        }
+    });
+
+    // Event listener to close the dropdown when clicking outside
+    document.addEventListener("click", function (event) {
+        if (!searchInput.contains(event.target) && !suggestionsContainer.contains(event.target)) {
+            hideSuggestionsDropdown();
+        }
+    });
+
+    // Function to show the suggestion dropdown
+    function showSuggestionsDropdown() {
+        suggestionsContainer.style.display = "block";
+    }
+
+    // Function to hide the suggestion dropdown
+    function hideSuggestionsDropdown() {
+        suggestionsContainer.style.display = "none";
+    }
+
+    // Function to update suggestions based on user input
+    function updateSuggestions() {
+        var searchTerm = searchInput.value.trim().toLowerCase();
+        var filteredSuggestions = predefinedSuggestions.filter(function (suggestion) {
+            return suggestion.toLowerCase().includes(searchTerm);
+        });
+
+        // Display suggestions in the container
+        renderSuggestions(filteredSuggestions);
+    }
+
+    // Function to render suggestions in the container
+    function renderSuggestions(suggestions) {
+        suggestionsContainer.innerHTML = "";
+
+        suggestions.forEach(function (suggestion) {
+            var suggestionItem = document.createElement("div");
+            suggestionItem.className = "suggestion-item";
+
+            // Add clock and cross symbols to each suggestion
+            suggestionItem.innerHTML = "<span style='float:left; padding-right: 5px;'>🕒</span>" + suggestion + "<span style='float:right;'>✖</span>";
+
+            suggestionItem.onclick = function () {
+                selectSuggestion(suggestion);
+            };
+
+            suggestionsContainer.appendChild(suggestionItem);
+        });
+    }
+
+    // Function to handle selecting a suggestion
+    function selectSuggestion(suggestion) {
+        // text without clock and cross symbols
+        var suggestionText = suggestion.replace("🕒", "").replace("✖", "");
+        searchInput.value = suggestionText;
+        hideSuggestionsDropdown();
+    }
+
+    // Function to handle search and redirection
+    function searchAndRedirect() {
+        var searchTerm = searchInput.value.trim();
+
+        if (predefinedSuggestions.includes(searchTerm)) {
+            // Use predefined redirects for specific search terms
+            var redirectURL = getRedirectURL(searchTerm);
+            window.location.href = redirectURL;
+            hideSuggestionsDropdown();
+        } else {
+            // Default redirection if no specific match
+            var defaultRedirectURL = "go3.html?q=" + encodeURIComponent(searchTerm);
+            window.location.href = defaultRedirectURL;
+            hideSuggestionsDropdown();
+        }
+    }
+
+    // Function to get predefined redirect URL for specific search terms
+    function getRedirectURL(searchTerm) {
+        switch (searchTerm) {
+            case "michael dhiman":
+                return "go1.html";
+                break;
+            case "michael":
+                return "go3.html";
+                break;
+            case "hello":
+                return "foo.html";
+                break;
+             case "e":
+                return "emojicam.html";
+                break; // Add this case for "e"
+            case "michaeljackson":
+                return "go4.html";
+                break;
+            case "xxx":
+                return "go2.html";
+                break;
+            case "Snehail":
+            case "snehail":
+            case "snehail devrani":
+                return "go4.html";
+                break;
+           
+            case "ragging complaint":
+                return "comp1.html";
+                break;
+            case "ragging":
+                return "comp1.html";
+                break;
+            case "hello":
+            return "goo2.html";
+            break;
+            
+            default:
+                return "go3.html?q=" + encodeURIComponent(searchTerm);
+        }
+    }
+});
+
+
+    </script>
+    
+    
+</body>
+</html>

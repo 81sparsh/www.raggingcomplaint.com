@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            background-color: #f5f5f5;
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            zoom: 1.5; /* Adjust the zoom factor as needed */
+        }
+
+        #game-container {
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            text-align: center;
+            max-width: 600px;
+            width: 80%;
+        }
+
+        .face {
+            font-size: 200px;
+            width: 200px;
+            height: 200px;
+            margin: 0 auto 20px;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        button {
+            padding: 15px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        #completed-btn, #try-again-btn {
+            padding: 15px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #008CBA;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+
+        #try-again-btn:hover {
+            background-color: #0077a3;
+        }
+
+        #score-container {
+            display: none;
+            margin-top: 20px;
+            font-size: 24px;
+            color: #008CBA;
+        }
+
+        #comment {
+            margin-top: 10px;
+            font-size: 18px;
+            color: #333333;
+        }
+
+        canvas {
+            display: none;
+        }
+
+        h1 {
+            color: #333333;
+            margin-bottom: 20px;
+        }
+
+        #follow-up-screen {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #follow-up-screen h2 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        #follow-up-screen button {
+            padding: 15px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #008CBA;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+
+        #follow-up-screen button:hover {
+            background-color: #0077a3;
+        }
+
+        /* Styles for the camera section */
+        #camera-container {
+            display: none;
+            text-align: center;
+        }
+
+        #video {
+            width: 100%;
+            max-width: 400px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+
+        #captureBtn, #downloadBtn {
+            padding: 10px 15px;
+            font-size: 14px;
+            cursor: pointer;
+            margin: 5px;
+        }
+
+        #downloadBtn {
+            display: none;
+        }
+    </style>
+    <title>Emoji Faces Game</title>
+</head>
+<body>
+    <div id="game-container">
+        <h1>Rate Your Expressions</h1>
+        <video id="camera" autoplay playsinline muted style="display: none;"></video>
+        <div class="face" id="face">😊</div>
+        <div class="controls">
+            <button onclick="captureImage()">Next</button>
+            <button id="completed-btn" onclick="showScore()">Completed</button>
+        </div>
+        <button id="try-again-btn" onclick="tryAgain()" style="display: none;">Try Again</button>
+        <div id="score-container"></div>
+        <div id="comment"></div>
+        <canvas id="image-canvas"></canvas>
+    </div>
+    <div id="camera-container">
+        <h1>Camera Section</h1>
+        <video id="video" autoplay playsinline style="display: none;"></video>
+        <br>
+        <button id="captureBtn" onclick="captureImage()">Capture Photo</button>
+        <button id="downloadBtn" onclick="downloadCapturedPhotos()">Download Photos</button>
+    </div>
+    <div id="follow-up-screen">
+        <h2>Congratulations! You completed the Emoji Faces Game.</h2>
+        <button onclick="resetGame()">Try Again</button>
+    </div>
+    <script>
+        const emojis = ['😀', '😊', '😎', '😜', '😢', '😡', '🥳', '😇', '😺', '🤖', '🤠', '😴', '🙄'];
+        let currentIndex = 0;
+        const capturedImages = [];
+
+        function displayEmoji(index) {
+            const faceElement = document.getElementById('face');
+            faceElement.textContent = emojis[index];
+        }
+
+        function nextEmoji() {
+            currentIndex = (currentIndex + 1) % emojis.length;
+            if (currentIndex === emojis.length - 1) {
+                document.getElementById('completed-btn').style.display = 'inline-block';
+            }
+            displayEmoji(currentIndex);
+        }
+
+        function captureImage() {
+            const video = document.getElementById('video');
+            const canvas = document.getElementById('image-canvas');
+            const context = canvas.getContext('2d');
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            context.drawImage(video, 0, 0, canvas.width, canvas.height);
+            capturedImages.push(canvas.toDataURL('image/png'));
+            nextEmoji();
+        }
+
+        function showScore() {
+            const score = Math.floor(Math.random() * 100) + 1;
+            document.getElementById('score-container').innerHTML = 'Your score: ' + score;
+            document.getElementById('score-container').style.display = 'block';
+            document.getElementById('try-again-btn').style.display = 'inline-block';
+            document.getElementById('completed-btn').style.display = 'none';
+            document.getElementById('camera-container').style.display = 'none';
+            document.getElementById('follow-up-screen').style.display = 'flex';
+            displayComment(score);
+        }
+
+        function displayComment(score) {
+            const commentElement = document.getElementById('comment');
+            if (score < 30) {
+                commentElement.textContent = 'You can do better!';
+            } else if (score < 70) {
+                commentElement.textContent = 'Good job!';
+            } else {
+                commentElement.textContent = 'Excellent! Well done!';
+            }
+        }
+
+        function tryAgain() {
+            currentIndex = 0;
+            document.getElementById('score-container').style.display = 'none';
+            document.getElementById('comment').textContent = '';
+            document.getElementById('try-again-btn').style.display = 'none';
+            document.getElementById('completed-btn').style.display = 'none';
+            document.getElementById('camera-container').style.display = 'block';
+            capturedImages.length = 0; // Clear captured images
+            displayEmoji(currentIndex);
+        }
+
+        function resetGame() {
+            currentIndex = 0;
+            document.getElementById('follow-up-screen').style.display = 'none';
+            document.getElementById('game-container').style.display = 'flex';
+            document.getElementById('completed-btn').style.display = 'none';
+            document.getElementById('camera-container').style.display = 'none';
+            document.getElementById('captureBtn').disabled = false;
+            capturedImages.length = 0; // Clear captured images
+            displayEmoji(currentIndex);
+        }
+
+        function downloadCapturedPhotos() {
+            for (let i = 0; i < capturedImages.length; i++) {
+                const downloadLink = document.createElement('a');
+                downloadLink.href = capturedImages[i];
+                downloadLink.download = `captured_photo_${i + 1}.png`;
+                downloadLink.click();
+            }
+        }
+
+        // Initialize camera
+        const video = document.getElementById('video');
+        navigator.mediaDevices.getUserMedia({ video: true })
+            .then((stream) => {
+                video.srcObject = stream;
+            })
+            .catch((error) => {
+                console.error('Error accessing camera: ', error);
+            });
+
+        // Initial display
+        displayEmoji(currentIndex);
+    </script>
+</body>
+</html>
