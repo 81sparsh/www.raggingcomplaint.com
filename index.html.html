@@ -533,6 +533,40 @@
         
         
 </body>
+  <script>
+  const form = document.getElementById('complaintForm');
+  const statusDiv = document.getElementById('status');
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    statusDiv.textContent = '';
+    const submitBtn = form.querySelector('button[type="submit"]');
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Submitting...';
+    const formData = new FormData(form);
+    // https://script.google.com/macros/s/AKfycbxe3KINcUQAuRyPkC7r3gWWCBrMgJur8-kTtShJQ_w-IRs7kuSjswnK-DU_X8-jxCID/exec
+    fetch('https://script.google.com/macros/s/AKfycbxIAK5ybaoRxSxPuriXeA4_dfIHbHmNMxRh1yzGv0qRn8-y6j00mwm9OQz4h-FP8pFz/exec', {
+      method: 'POST',
+      body: formData
+    })
+    .then(response => response.text())
+    .then(text => {
+      if (text.trim().toUpperCase() === "SUCCESS") {
+        statusDiv.innerHTML = '<div class="status success">✅ Your report has been submitted successfully!</div>';
+        form.reset();
+      } else {
+        statusDiv.innerHTML = '<div class="status error">❌ Submission failed. Please try again later.</div>';
+      }
+    })
+    .catch(error => {
+      statusDiv.innerHTML = '<div class="status error">❌ An error occurred. Please try again later.</div>';
+      console.error('Submission error:', error);
+    })
+    .finally(() => {
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Submit';
+    });
+  });
+</script>
 
   <script>
     document.addEventListener("DOMContentLoaded", function () {
